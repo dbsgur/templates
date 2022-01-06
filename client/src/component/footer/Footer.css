@@ -1,0 +1,6 @@
+.footer-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: solid 0.5px;
+}
