@@ -10,7 +10,6 @@ const Signin = () => {
       email: values.email,
       password: values.password,
     };
-    // setSession_email(values.email);
     fetch("http://localhost:5000/signin", {
       method: "post",
       headers: {
@@ -22,8 +21,9 @@ const Signin = () => {
       .then((json) => {
         console.log("json :", json);
         if (json === 1) {
-          navigate("/landing");
-          window.sessionStorage.setItem("email", values.email);
+          // navigate("/landing");
+          window.location.replace("/landing");
+          sessionStorage.setItem("email", values.email);
         } else {
           alert("plz confirm password & ID");
         }
