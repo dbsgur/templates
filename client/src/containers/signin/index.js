@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
-  const [loginstate, setloginstate] = useState(0);
+  const navigate = useNavigate();
+
   const onFinish = (values) => {
     const post = {
       email: values.email,
       password: values.password,
     };
+    // setSession_email(values.email);
     fetch("http://localhost:5000/signin", {
       method: "post",
       headers: {
@@ -18,21 +20,15 @@ const Signin = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        // console.log("json :", json);
-        setloginstate(json);
+        console.log("json :", json);
+        if (json === 1) {
+          navigate("/landing");
+          window.sessionStorage.setItem("email", values.email);
+        } else {
+          alert("plz confirm password & ID");
+        }
       });
-
-    console.log("Success:");
   };
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (loginstate === 1) {
-      // window.location.href = "/";
-      navigate("/signup");
-    }
-  });
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
