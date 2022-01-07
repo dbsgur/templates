@@ -1,5 +1,6 @@
 import { Form, Input, Button, Checkbox } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const [loginstate, setloginstate] = useState(0);
@@ -19,15 +20,19 @@ const Signin = () => {
       .then((json) => {
         // console.log("json :", json);
         setloginstate(json);
-        if (loginstate === 1) {
-          window.location.href = "/";
-        } else {
-          alert("아이디 또는 비밀번호를 제대로 입력하세요!!!");
-        }
       });
 
     console.log("Success:");
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginstate === 1) {
+      // window.location.href = "/";
+      navigate("/signup");
+    }
+  });
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
